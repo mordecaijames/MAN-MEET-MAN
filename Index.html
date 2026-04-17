@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Man Meets Man 2026 — Registration | Templebreed International</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Index.css">
+</head>
+<body>
+
+    <!-- Background: the event flyer -->
+    <div class="bg-image"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="header-inner">
+
+            <!-- Top bar -->
+            <div class="header-topbar">
+                <span class="org-name">TEMPLEBREED INTERNATIONAL</span>
+            
+            </div>
+
+            <!-- Hero title -->
+            <div class="header-hero">
+                <div class="event-kicker">SINGLES &amp; MARRIED CONFERENCE</div>
+                <h1 class="event-title">
+                    <span>MAN</span>
+                    <span class="meets">MEETS</span>
+                    <span>MAN</span>
+                </h1>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ===== FORM ===== -->
+    <main class="container">
+
+        <div class="form-intro">
+            <div class="form-intro-badge">REGISTRATION</div>
+        </div>
+
+        <form id="registrationForm" class="form-wrapper">
+
+            <!-- 01 Personal Information -->
+            <div class="section-card">
+                <h2 class="section-title">
+                    <span class="sn">01</span>
+                    <span>Personal Information</span>
+                </h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                        <span class="error-message">Please enter your full name</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                        <span class="error-message">Please enter a valid email address</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="e.g. 08012345678" required>
+                        <span class="error-message">Please enter a valid phone number</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Home Address</label>
+                        <input type="text" id="address" name="address" placeholder="Enter your address" required>
+                        <span class="error-message">Please enter your address</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Marital Status</label>
+                    <div class="radio-grid g4">
+                        <div class="radio-group"><input type="radio" id="single"  name="maritalStatus" value="Single"   required><label for="single">Single</label></div>
+                        <div class="radio-group"><input type="radio" id="married" name="maritalStatus" value="Married"         ><label for="married">Married</label></div>
+                        <div class="radio-group"><input type="radio" id="divorced"name="maritalStatus" value="Divorced"        ><label for="divorced">Divorced</label></div>
+                        <div class="radio-group"><input type="radio" id="widowed" name="maritalStatus" value="Widowed"         ><label for="widowed">Widowed</label></div>
+                    </div>
+                    <span class="error-message">Please select your marital status</span>
+                </div>
+            </div>
+
+            <!-- 02 Conference Details -->
+            <div class="section-card">
+                <h2 class="section-title">
+                    <span class="sn">02</span>
+                    <span>Conference Details</span>
+                </h2>
+
+                <div class="form-group" id="attendanceGroup">
+                    <label>Which day(s) will you attend? <span class="label-hint">(select all that apply)</span></label>
+                    <div class="attendance-cards">
+                        <div class="att-card">
+                            <input type="checkbox" id="day1" name="attendance" value="Day 1 — Saturday, Apr 25">
+                            <label for="day1">
+                                <span class="att-check">✓</span>
+                                <span class="att-day">Day 1</span>
+                                <span class="att-date">Saturday, Apr 25</span>
+                            </label>
+                        </div>
+                        <div class="att-card">
+                            <input type="checkbox" id="day2" name="attendance" value="Day 2 — Sunday, Apr 26">
+                            <label for="day2">
+                                <span class="att-check">✓</span>
+                                <span class="att-day">Day 2</span>
+                                <span class="att-date">Sunday, Apr 26</span>
+                            </label>
+                        </div>
+                    </div>
+                    <span class="error-message">Please select at least one day</span>
+                </div>
+
+                <div class="form-group">
+                    <label>How did you hear about this conference?</label>
+                    <div class="radio-grid g3">
+                        <div class="radio-group"><input type="radio" id="src1" name="eventSource" value="Church announcement" required><label for="src1">Church Announcement</label></div>
+                        <div class="radio-group"><input type="radio" id="src2" name="eventSource" value="Friend / Family"><label for="src2">Friend / Family</label></div>
+                        <div class="radio-group"><input type="radio" id="src3" name="eventSource" value="Social media"><label for="src3">Social Media</label></div>
+                        <div class="radio-group"><input type="radio" id="src4" name="eventSource" value="Flyer / Poster"><label for="src4">Flyer / Poster</label></div>
+                        <div class="radio-group"><input type="radio" id="src6" name="eventSource" value="Other"><label for="src6">Other</label></div>
+                    </div>
+                    <span class="error-message">Please select how you heard about the conference</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="expectations">What are your expectations for this conference?</label>
+                    <textarea id="expectations" name="expectations" placeholder="Share what you're believing God for, or what you hope to gain from Man Meets Man 2026…" required></textarea>
+                    <span class="error-message">Please share your expectations</span>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="submit" class="btn-submit">
+                    <span class="btn-text">Register Now</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+                <button type="reset" class="btn-reset">Clear Form</button>
+            </div>
+
+        </form>
+    </main>
+
+    <!-- ===== SUCCESS MODAL ===== -->
+    <div class="success-modal" id="successModal">
+        <div class="success-content">
+            <div class="success-check">✓</div>
+            <h2>You're In!</h2>
+            <p>Your registration for <strong>Man Meets Man 2026</strong> is confirmed.</p>
+            <div class="success-details">
+                <div class="sd-row">
+                    <span class="sd-icon">📅</span>
+                    <div><strong>Date</strong><span id="eventDateTime"></span></div>
+                </div>
+                <div class="sd-row">
+                    <span class="sd-icon">🕒</span>
+                    <div><strong>Time</strong><span>3PM Daily</span></div>
+                </div>
+                <div class="sd-row">
+                    <span class="sd-icon">📍</span>
+                    <div><strong>Venue</strong><span>Lifegate People's Assembly, Gwari Ave, Barnawa GRA, Kaduna</span></div>
+                </div>
+            </div>
+            <p class="modal-note">Check your email for the full event programme.</p>
+            <button class="btn-close-modal" onclick="closeModal()">Done</button>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-title">MAN MEETS MAN 2026</div>
+            <div class="footer-org">Presented by Templebreed International</div>
+            <div class="footer-rule"></div>
+            <div class="footer-credit">
+                Website by <a href="https://wa.me/2349077673110" target="_blank">Great Man Mordecai</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="Index.js"></script>
+</body>
+</html>
