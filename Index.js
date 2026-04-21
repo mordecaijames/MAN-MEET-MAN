@@ -10,7 +10,7 @@
 // =====================================================================
 
 const FORM_CONFIG = {
-    googleSheetEndpoint: 'https://script.google.com/macros/s/AKfycbz7PcgmW7HZC7VN3XP_w1P3ZhOOgo_1z74EI4oaLF8wWX1-a2jwJpMM-yGO9XoOObmA-Q/exec',
+    googleSheetEndpoint: 'https://script.google.com/macros/s/AKfycbwX1yd7XbpLD-_ibMxCrco_eSb-sQoq47_XFPtsm6-Oiqp97kfYgG_RUbRWGQbXc9d5BQ/exec',
     eventDateTime: '25th – 26th April 2026 (3PM Daily)'
 };
 
@@ -23,12 +23,6 @@ const btnText         = submitBtn.querySelector('.btn-text');
 
 // =====================================================================
 // ALREADY-REGISTERED GUARD
-// Checks localStorage on every page load. If this browser has already
-// completed a registration, the form is replaced with a clear message
-// so the person cannot submit again from the same device/browser.
-// The server-side email duplicate check acts as the second layer of
-// protection for anyone who clears their browser data or tries from
-// a different device.
 // =====================================================================
 const STORAGE_KEY = 'mmm2026_registered';
 
@@ -57,7 +51,6 @@ function getRegisteredName() {
 function showAlreadyRegisteredBanner() {
     const name = getRegisteredName().split(' ')[0];
 
-    // Hide the form entirely
     form.closest('.container').innerHTML = `
         <div style="
             background: rgba(255,255,255,0.96);
@@ -107,14 +100,11 @@ function showAlreadyRegisteredBanner() {
     `;
 }
 
-// Escape hatch — clears localStorage so a different person can register
-// on the same device (e.g. shared phone at the venue desk)
 function clearRegistrationData() {
     try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
     location.reload();
 }
 
-// Run guard immediately on page load
 if (isAlreadyRegistered()) {
     document.addEventListener('DOMContentLoaded', showAlreadyRegisteredBanner);
 }
@@ -141,7 +131,6 @@ function validateRadioGroup(name) {
     return checked;
 }
 
-// At least one checkbox must be ticked
 function validateCheckboxGroup(name) {
     const boxes   = form.querySelectorAll(`input[name="${name}"]`);
     const checked = Array.from(boxes).some(b => b.checked);
@@ -156,7 +145,7 @@ function validateForm() {
     form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea')
         .forEach(f => { if (!validateField(f)) valid = false; });
 
-    ['maritalStatus', 'eventSource']
+    ['ageRange', 'maritalStatus', 'eventSource']
         .forEach(n => { if (!validateRadioGroup(n)) valid = false; });
 
     if (!validateCheckboxGroup('attendance')) valid = false;
@@ -195,7 +184,6 @@ form.querySelectorAll('input[type="checkbox"]')
 function collectFormData() {
     const fd = new FormData(form);
 
-    // Collect all ticked attendance days
     const attendanceDays = Array.from(form.querySelectorAll('input[name="attendance"]:checked'))
         .map(c => c.value)
         .join(', ');
@@ -205,6 +193,7 @@ function collectFormData() {
         email:            fd.get('email'),
         phone:            fd.get('phone'),
         address:          fd.get('address'),
+        ageRange:         fd.get('ageRange'),
         maritalStatus:    fd.get('maritalStatus'),
         attendance:       attendanceDays || 'Not selected',
         eventSource:      fd.get('eventSource'),
@@ -216,7 +205,6 @@ function collectFormData() {
 
 // ===== Submit to Google Sheets =====
 async function submitToGoogleSheet(data) {
-    // Primary: CORS fetch — lets us read the server's response (incl. ALREADY_REGISTERED)
     try {
         const res = await fetch(FORM_CONFIG.googleSheetEndpoint, {
             method:  'POST',
@@ -225,17 +213,12 @@ async function submitToGoogleSheet(data) {
         });
         return await res.json();
     } catch (corsErr) {
-        // Fallback: no-cors — data reaches the server but we can't read the response.
-        // We pre-check localStorage above so legitimate duplicates are caught client-side.
-        // The server's email-based duplicate check remains the authoritative guard.
         await fetch(FORM_CONFIG.googleSheetEndpoint, {
             method:  'POST',
             mode:    'no-cors',
             headers: { 'Content-Type': 'text/plain' },
             body:    JSON.stringify({ action: 'addRegistration', ...data })
         });
-        // We can't know the server's response in no-cors mode.
-        // Treat as success — the server will silently reject true duplicates.
         return { success: true, code: 'SUCCESS' };
     }
 }
@@ -251,8 +234,6 @@ function setLoading(on) {
 form.addEventListener('submit', async e => {
     e.preventDefault();
 
-    // Belt-and-suspenders: catch anyone who cleared the banner via JS but
-    // somehow got the form back without a reload
     if (isAlreadyRegistered()) {
         showAlreadyRegisteredBanner();
         return;
@@ -273,7 +254,6 @@ form.addEventListener('submit', async e => {
 
         if (result?.success === false) {
             if (result.code === 'ALREADY_REGISTERED') {
-                // Server confirmed duplicate — mark locally and show banner
                 markAsRegistered(data.fullName);
                 showAlreadyRegisteredBanner();
             } else {
@@ -282,7 +262,6 @@ form.addEventListener('submit', async e => {
             return;
         }
 
-        // ✅ Success — lock this browser against re-registration
         markAsRegistered(data.fullName);
 
         eventDateTimeEl.textContent = FORM_CONFIG.eventDateTime;
