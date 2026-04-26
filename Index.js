@@ -1,13 +1,4 @@
-// =====================================================================
-// MAN MEETS MAN 2026 — TEMPLEBREED INTERNATIONAL
-// Index.js — Validation + Google Sheets Integration
-// =====================================================================
-// SETUP:
-//  1. Open your Google Sheet → Extensions → Apps Script
-//  2. Paste the GoogleAppsScript.gs code → Save & Deploy as Web App
-//     (Execute as: Me | Who has access: Anyone)
-//  3. Copy the Web App URL and paste it below as googleSheetEndpoint
-// =====================================================================
+
 
 const FORM_CONFIG = {
     googleSheetEndpoint: 'https://script.google.com/macros/s/AKfycbwX1yd7XbpLD-_ibMxCrco_eSb-sQoq47_XFPtsm6-Oiqp97kfYgG_RUbRWGQbXc9d5BQ/exec',
